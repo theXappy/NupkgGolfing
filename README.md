@@ -13,7 +13,7 @@ The submitted `.nupkg` file consists of 3 'formats', each needed to be golf'd:
 2. Two XML files. One of them contains the C# expr.
 3. A Zip file containing both XML files.
 
-![image](https://github.com/theXappy/NupkgGolfing/assets/10898152/0d2255d0-20eb-4dbb-a1ee-2a626dd51515)
+![image](https://github.com/theXappy/NupkgGolfing/assets/10898152/67a90b81-8ae4-4994-a218-4fd41258ee6d)
 
 ## The Plan
 Nuget packages are stored (on the nuget server) and served to VisualStudio as `.nupkg` files.  
