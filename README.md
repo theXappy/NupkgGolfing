@@ -120,9 +120,10 @@ And that's it!
 The final result is:
 ```
 a.nupkg (zip) size: 486 bytes
-(Out of it:
-1. The decompressed XML sizes: 79 + 332 = 411 bytes
-2. C# Expresion: 83 bytes
+(
+Out of which:
+  1. The decompressed XML sizes: 79 + 332 = 411 bytes
+  2. C# Expresion: 83 bytes
 )
 ```
 
