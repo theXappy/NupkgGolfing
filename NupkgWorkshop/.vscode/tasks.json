@@ -1,0 +1,133 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build XmlMinify",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/XmlMinify/",
+            }
+        },
+        {
+            "label": "Delete Publish Folder",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "${workspaceFolder}/publish/",
+                "-Recurse",
+                "-Force"
+            ]
+        },
+        {
+            "label": "Minify",
+            "type": "shell",
+            "command": "${workspaceFolder}XmlMinify\\bin\\Debug\\net8.0\\XmlMinify.exe",
+            "args": [
+                "${workspaceFolder}/src/",
+                "${workspaceFolder}/publish/"
+            ],
+            "dependsOn": [
+                "Build XmlMinify",
+                "Delete Publish Folder"
+            ]
+        },
+        {
+            "label": "Delete Old nupkg",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "${workspaceFolderBasename}.nupkg*"
+            ],
+            "dependsOn": [
+                "Minify",
+            ]
+        },
+        {
+            "label": "Zip nupkg",
+            "type": "shell",
+            "command": "C:\\Program Files\\7-Zip\\7z.exe",
+            "args": [
+                "a",
+                "-tzip",
+                "-mx=9",
+                "${workspaceFolderBasename}.nupkg",
+                "${workspaceFolder}/publish/*"
+            ],
+            "dependsOn": [
+                "Minify",
+                "Delete Old nupkg"
+            ]
+        },
+        {
+            "label": "Delete NuGet Folder",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "c:\\myNuGet\\iamroot\\*",
+                "-Recurse",
+                "-Force"
+            ]
+        },
+        {
+            "label": "Delete NuGet Cache Folder",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "C:\\Users\\<<YOUR_USER>>\\.nuget\\packages\\iamroot*",
+                "-Recurse",
+                "-Force"
+            ]
+        },
+        {
+            "label": "Delete NuGet Cache Folder a",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "C:\\Users\\<<YOUR_USER>>\\.nuget\\packages\\a*",
+                "-Recurse",
+                "-Force"
+            ]
+        },
+        {
+            "label": "Delete NuGet Folder a",
+            "type": "shell",
+            "command": "Remove-Item",
+            "args": [
+                "c:\\myNuGet\\a\\*",
+                "-Recurse",
+                "-Force"
+            ]
+        },
+        {
+            "label": "Add NuGet Package",
+            "type": "shell",
+            "command": "<<PATH_TO>>\\nuget.exe",
+            "args": [
+                "add",
+                "-Source",
+                "C:\\myNuGet",
+                "${workspaceFolderBasename}.nupkg"
+            ],
+            "dependsOn": [
+                "Delete NuGet Folder",
+                "Delete NuGet Cache Folder",
+                "Delete NuGet Cache Folder a",
+                "Delete NuGet Folder a"
+            ]
+        },
+        {
+            "label": "Full Chain",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Zip nupkg",
+                "Add NuGet Package"
+            ]
+        }
+    ]
+}
