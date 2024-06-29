@@ -19,7 +19,7 @@
             "type": "shell",
             "command": "Remove-Item",
             "args": [
-                "${workspaceFolder}/publish/",
+                "${workspaceFolder}/publish/*",
                 "-Recurse",
                 "-Force"
             ]
@@ -27,7 +27,7 @@
         {
             "label": "Minify",
             "type": "shell",
-            "command": "${workspaceFolder}XmlMinify\\bin\\Debug\\net8.0\\XmlMinify.exe",
+            "command": "${workspaceFolder}\\XmlMinify\\bin\\Debug\\net8.0\\XmlMinify.exe",
             "args": [
                 "${workspaceFolder}/src/",
                 "${workspaceFolder}/publish/"
@@ -118,14 +118,14 @@
                 "Delete NuGet Folder",
                 "Delete NuGet Cache Folder",
                 "Delete NuGet Cache Folder a",
-                "Delete NuGet Folder a"
+                "Delete NuGet Folder a",
+                "Zip nupkg",
             ]
         },
         {
             "label": "Full Chain",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Zip nupkg",
                 "Add NuGet Package"
             ]
         }
