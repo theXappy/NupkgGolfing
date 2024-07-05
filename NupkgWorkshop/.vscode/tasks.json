@@ -65,6 +65,22 @@
             ]
         },
         {
+            "label": "Shrink nupkg",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "ZipShrink/shrink.py",
+                "${workspaceFolderBasename}.nupkg",
+                "${workspaceFolderBasename}_shrinked.nupkg",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/",
+            },
+            "dependsOn": [
+                "Zip nupkg"
+            ]
+        },
+        {
             "label": "Delete NuGet Folder",
             "type": "shell",
             "command": "Remove-Item",
@@ -112,14 +128,14 @@
                 "add",
                 "-Source",
                 "C:\\myNuGet",
-                "${workspaceFolderBasename}.nupkg"
+                "${workspaceFolderBasename}_shrinked.nupkg",
             ],
             "dependsOn": [
                 "Delete NuGet Folder",
                 "Delete NuGet Cache Folder",
                 "Delete NuGet Cache Folder a",
                 "Delete NuGet Folder a",
-                "Zip nupkg",
+                "Shrink nupkg",
             ]
         },
         {
