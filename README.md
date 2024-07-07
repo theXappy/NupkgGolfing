@@ -7,7 +7,7 @@ I wanted to do something .NET related but C# is only valid as a PE executable (a
 I vaugely recalled the cool research of [IAmRoot by C. Augusto Proiete](https://github.com/augustoproiete/i-am-root-nuget-package), which lets you run code once a 'malicious' nuget package is installed.  
 So we're targeting Visual Studio's nuget client :)
 
-## Submitte Artifact
+## Submitted Artifact
 The submitted `.nupkg` file consists of 3 'formats', each needed to be golf'd:
 1. A C# expression (This is the actual done to download + show the `5` file)
 2. Two XML files. One of them contains the C# expr.
@@ -21,7 +21,7 @@ My plan was start from a slightly modified IAmRoot's nupkg and inclementally tri
 `.nupkg` files are just fancy `.zip` files (as Microsoft loves to do. Hey `.docx`!).  
 ![image](https://github.com/theXappy/NupkgGolfing/assets/10898152/eab4a177-f3b9-4ec3-9a18-90850691a4f7)
 
-I figured I'm going to edit the files inside constantly then `zip`'em and "add" to my local nuget repository.  
+I figured I'm going to edit the files inside **constantly** then `zip`'em and "add" the package to my local nuget repository.  
 Lucky me, the bikeshedding was short and finite and within an hour I got a custom working "Nupkg Workbench" working in Visual Studio Code.  
 This allows me to modify the extracted files from the zip and with a few clicks run a "Task" that automatically zips the files and update the repo with the new nupkg.  
 This workspace is documented in the "Nupkg Workbench" directory in this repo. 
@@ -68,6 +68,7 @@ I suspected some of them are redundant so I progressively removed them and check
 As you can see, the minimal required structure is much smaller. Consisting of just 1 directory and 2 files.  
 1. The `.nuspec` files declares information about the packge: Name, version, Developer etc. It's mandatory in every `.nupkg`.
 2. The `.targets` files is the actually an optional file but this is where we exploit the build event to trigger our download, so for our case we must have it.
+
 Both files are actually **xml files**.
 
 ### 4. Golfing the XMLs
@@ -119,7 +120,7 @@ Manual zip modifications:
 And that's it!
 The final result is:
 ```
-a.nupkg (zip) size: 486 bytes
+a.nupkg (zip) size: 491 bytes
 (
 Out of which:
   1. The decompressed XML sizes: 79 + 332 = 411 bytes
