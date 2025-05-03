@@ -9,7 +9,7 @@ So we're targeting Visual Studio's nuget client :)
 
 ## Submitted Artifact
 The submitted `.nupkg` file consists of 3 'formats', each needed to be golf'd:
-1. A C# expression (This is the actual done to download + show the `5` file)
+1. A C# expression (This is the actual code to download + show the `5` file)
 2. Two XML files. One of them contains the C# expr.
 3. A Zip file containing both XML files.
 
@@ -87,7 +87,7 @@ This doesn't work on the inner `<metadata>` tag. Changing it to anything causes 
 
 #### 4.2. Minifying the XMLs
 Obviously, I could just remove whitespaces and newlines in my working copies of the XML.  
-But that makes modifying them a pain in the ass. So Instead I just added an automatic "build" step that minifies the XMLs before shoving them into the zip.  
+But that makes modifying them a pain in the ass. Instead, I just added an automatic "build" step that minifies the XMLs before shoving them into a zip.  
 For Example:
 ![image](https://github.com/theXappy/NupkgGolfing/assets/10898152/0913fdb8-5675-4449-86c5-1fb633558d62)
 
@@ -96,7 +96,7 @@ This was done with a very simple C# program I called `XmlMinify`. Its code is al
 ### 5. Golfing the Zip Binary Format
 As mentioned, `.nupkg` is just a zip file. So once we zip both XMLs we still need to optimize the zip representation.  
 I found this nice tool called [FileOptimizer](https://nikkhokkho.sourceforge.io/?page=FileOptimizer) by Javier Gutiérrez Chamorro.  
-And I was also told about [amadvance/advancecomp](https://github.com/amadvance/advancecomp), which I think FileOptimizer uses it behind the scenes.  
+And I was also told about [amadvance/advancecomp](https://github.com/amadvance/advancecomp), which I think FileOptimizer uses behind the scenes.  
 Anyway both got me to a super slim .zip but they were re-compressing with a format not supported by .NET `ZipArchive` class. It only support DEFLATE(64)/No compression:
 ![image](https://github.com/theXappy/NupkgGolfing/assets/10898152/6b11c599-6e11-4f58-b746-ab59bc687007)
 
